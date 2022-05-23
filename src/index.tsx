@@ -1,6 +1,6 @@
 import "./font.scss";
 import "./style.scss";
-import "./elementsFromPointPolyfill.js";
+import "./elementsFromPointPolyfill.ts";
 import { Warehouse } from "./warehouse";
 import React, { useEffect, useRef, useState } from "react";
 import { StorageCabinet } from "./storageCabinet";
