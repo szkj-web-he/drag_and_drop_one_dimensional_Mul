@@ -1,0 +1,287 @@
+@use "./normalize.scss" as *;
+
+$fontFamily: "alipuhui", sans-serif;
+
+$color: #212121;
+
+html,
+.wrapper,
+body,
+body > div:not([class], [id]) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+html,
+body {
+    overflow: hidden;
+}
+
+.wrapper {
+    overflow: auto;
+}
+
+.h1 {
+    font-family: $fontFamily;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.2px;
+    color: $color;
+    .des {
+        font-weight: 400;
+        color: #757575;
+    }
+}
+
+.warehouse_wrap {
+    margin-top: 32px;
+    margin-bottom: 24px;
+}
+
+.warehouse_total {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    font-family: $fontFamily;
+    letter-spacing: 0.2px;
+    color: #bdbdbd;
+}
+
+.warehouse_totalVal {
+    color: #209ca8;
+    margin: 0 5px;
+
+    &.red {
+        color: #ff7745;
+    }
+}
+
+.warehouse_items {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-flow: row wrap;
+    margin-top: 8px;
+    padding-bottom: 24px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ebebeb;
+    max-height: 178px;
+    overflow: auto;
+    overflow-x: hidden;
+    min-height: 100px;
+}
+
+.warehouse_scrollWrap {
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+.hr {
+    width: 100%;
+    height: 1px;
+    background-color: #ebebeb;
+}
+
+.warehouse_scrollBody {
+    min-height: 100px;
+    max-height: 178px;
+    position: relative;
+    display: flex;
+    padding-bottom: 24px;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-flow: row wrap;
+}
+
+@mixin Item {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ebebeb;
+    color: #4d4d4d;
+    font-family: $fontFamily;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.2px;
+    display: inline-flex;
+    touch-action: none;
+    max-width: 100%;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.item {
+    cursor: pointer;
+    @include Item();
+    margin-right: 20px;
+    margin-bottom: 16px;
+    &.gray {
+        position: relative;
+        border-color: transparent;
+        overflow: hidden;
+        &::after {
+            content: "";
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            background-color: #ebebeb;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 50;
+        }
+    }
+}
+
+.floating {
+    @include Item();
+    background-color: #fff;
+    position: absolute;
+    z-index: 50;
+    pointer-events: none;
+    box-shadow: 0px 2px 8px rgba(26, 26, 26, 0.08), 0px 2px 4px rgba(26, 26, 26, 0.03);
+}
+
+.scroll_scrollBody {
+    padding: 0 12px;
+}
+
+.scroll_scrollBar__vertical {
+    right: 4px !important;
+    border-radius: 8px !important;
+}
+
+.warehouse_placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bdbdbd;
+    font-family: $fontFamily;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    line-height: 21px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.warehouse_body {
+    width: calc(100% + 20px);
+    .placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.scrollBody {
+    width: calc(100% + 16px);
+}
+
+.question {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    margin-bottom: 32px;
+}
+
+.questionContent {
+    color: #212121;
+    font-family: $fontFamily;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.2px;
+}
+
+.questionDes {
+    color: #757575;
+    font-family: $fontFamily;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.2px;
+}
+
+.storageCabinet_wrap {
+    margin-top: 40px;
+    width: 100%;
+    background: #fafafa;
+    border-radius: 10px;
+    height: 155px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.storageCabinet_container {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 2px 8px rgba(26, 26, 26, 0.08), 0px 2px 4px rgba(26, 26, 26, 0.03);
+    border-radius: 6px;
+    background-color: #fff;
+    position: relative;
+    transition: all 0.2s linear;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border: 1px dashed #22a6b3;
+        border-radius: 6px;
+        transition: all 0.2s linear;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    &.active {
+        background-color: #e9f7f8;
+        &::after {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+.scrollBody {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 8px 12px;
+}
+
+.placeholder {
+    font-family: $fontFamily;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.2px;
+    color: #bdbdbd;
+}
+
+.storageCabinet_main {
+    width: calc(100% + 20px);
+}
