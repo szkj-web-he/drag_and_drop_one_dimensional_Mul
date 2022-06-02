@@ -82,7 +82,8 @@ export const ScrollComponent = forwardRef<HTMLDivElement, ScrollProps>(
             defaultScrollLeft,
             className,
             style,
-            onMouseOver,
+            onMouseEnter,
+            onMouseLeave,
             stopPropagation = true,
             isSmooth,
             bodyClassName,
@@ -243,17 +244,18 @@ export const ScrollComponent = forwardRef<HTMLDivElement, ScrollProps>(
          * 当鼠标在滚动容器上时
          * 1. 重新计算滚动条尺寸
          */
-        const handleMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
+        const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
             setScrollBar(e.currentTarget);
             setHover(true);
-            onMouseOver && onMouseOver(e);
+            onMouseEnter?.(e);
         };
 
         /**
          * 当鼠标 离开 滚动容器上时
          */
-        const handleMouseLeave = () => {
+        const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
             setHover(false);
+            onMouseLeave?.(e);
         };
 
         /**
@@ -320,7 +322,7 @@ export const ScrollComponent = forwardRef<HTMLDivElement, ScrollProps>(
         return (
             <div
                 className={containerClassName.join(" ")}
-                onMouseOver={handleMouseOver}
+                onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 ref={ref}
                 style={Object.assign({}, width ? { width } : {}, height ? { height } : {})}

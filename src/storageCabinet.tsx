@@ -7,7 +7,7 @@ import { comms } from ".";
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
 
-import { ConfigProps, hasStorageEl, OptionProps } from "./unit";
+import { hasStorageEl, OptionProps } from "./unit";
 import { Product } from "./product";
 import { ScrollComponent } from "./Scroll";
 
@@ -37,7 +37,7 @@ export const StorageCabinet: React.FC = () => {
             listData[arr[i].code] = true;
         }
 
-        const optionsData = (comms as unknown as ConfigProps).config.options;
+        const optionsData = comms.config.options ?? [];
         for (let i = 0; i < optionsData.length; i++) {
             const item = optionsData[i];
             data[item.code] = listData[item.code];

@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { Product } from "./product";
-import { ConfigProps, hasStorageEl } from "./unit";
+import { hasStorageEl } from "./unit";
 import { comms } from ".";
 import { HandleUpFnProps, useMContext } from "./context";
 import { ScrollComponent } from "./Scroll";
@@ -20,7 +20,7 @@ export const Warehouse: React.FC = () => {
     const { isMobile, callback } = useMContext();
 
     const [list, setList] = useState(
-        (comms as unknown as ConfigProps).config.options.map((item) => ({
+        (comms.config.options ?? []).map((item) => ({
             code: item.code,
             content: item.content,
         })),
@@ -60,7 +60,7 @@ export const Warehouse: React.FC = () => {
                             className="placeholder"
                             style={list?.length ? { display: "none" } : {}}
                         >
-                            请将答案选项放置在这里
+                            暂无可拖拽的选项
                         </div>
                         <Product list={list} />
                     </div>
