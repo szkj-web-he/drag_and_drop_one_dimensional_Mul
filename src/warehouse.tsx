@@ -1,11 +1,10 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
 
-import React, { useState } from "react";
+import React from "react";
 import { Product } from "./product";
-import { hasStorageEl } from "./unit";
-import { comms } from ".";
-import { HandleUpFnProps, useMContext } from "./context";
+import { OptionProps } from "./unit";
+import { useMContext } from "./context";
 import { ScrollComponent } from "./Scroll";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
@@ -13,36 +12,23 @@ import { ScrollComponent } from "./Scroll";
 // const fruits = options.map(item => { const key = Object.keys(item)[0]; return item[key] });
 
 /** This section will include all the interface for this tsx file */
+export interface WarehouseProps {
+    list: Array<OptionProps>;
+}
 
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
-export const Warehouse: React.FC = () => {
-    const { isMobile, callback } = useMContext();
+export const Warehouse: React.FC<WarehouseProps> = ({ list }) => {
+    const { isMobile } = useMContext();
 
-    const [list, setList] = useState(
-        (comms.config.options ?? []).map((item) => ({
-            code: item.code,
-            content: item.content,
-        })),
+    const content = (
+        <div className="warehouse_body">
+            <div className="placeholder" style={list?.length ? { display: "none" } : {}}>
+                暂无可拖拽的选项
+            </div>
+            <Product list={list} />
+        </div>
     );
-
-    callback.current.up[1] = (res: HandleUpFnProps) => {
-        const arr = list ? [...list] : [];
-        const n = arr.findIndex((item) => item.code === res.code);
-
-        const status = hasStorageEl(res.x, res.y);
-
-        if (status && n >= 0) {
-            arr.splice(n, 1);
-            setList([...arr]);
-        } else if (n < 0 && !status) {
-            arr.push({
-                code: res.code,
-                content: res.content,
-            });
-            setList([...arr]);
-        }
-    };
     return (
         <div className="warehouse_wrap">
             <div className="warehouse_total">
@@ -54,17 +40,7 @@ export const Warehouse: React.FC = () => {
             </div>
 
             {isMobile ? (
-                <div className="warehouse_items">
-                    <div className="warehouse_body">
-                        <div
-                            className="placeholder"
-                            style={list?.length ? { display: "none" } : {}}
-                        >
-                            暂无可拖拽的选项
-                        </div>
-                        <Product list={list} />
-                    </div>
-                </div>
+                <div className="warehouse_items">{content}</div>
             ) : (
                 <ScrollComponent
                     className="warehouse_scrollWrap"
@@ -73,15 +49,7 @@ export const Warehouse: React.FC = () => {
                         x: true,
                     }}
                 >
-                    <div className="warehouse_body">
-                        <div
-                            className="placeholder"
-                            style={list?.length ? { display: "none" } : {}}
-                        >
-                            暂无可拖拽的选项
-                        </div>
-                        <Product list={list} />
-                    </div>
+                    {content}
                 </ScrollComponent>
             )}
         </div>

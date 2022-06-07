@@ -19,7 +19,7 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
 
-    const { isMobile, callback } = useMContext();
+    const { isMobile, moveCallBack, valueChangeCallback, upCallBack } = useMContext();
 
     const selectedFn = useRef<typeof document.onselectstart>(null);
 
@@ -31,8 +31,6 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
         width: 0,
         height: 0,
     });
-
-    const canMove = useRef(false);
 
     const selectRef = useRef<OptionProps>();
 
@@ -52,16 +50,20 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
 
     // 当移动时
     const handleMove = (e: MouseEvent | React.TouchEvent<HTMLDivElement>) => {
-        if (!canMove.current) return;
+        if (!selectRef.current) {
+            return;
+        }
         let x = 0;
         let y = 0;
         if (e instanceof MouseEvent) {
             x = e.pageX;
             y = e.pageY;
+            moveCallBack.current(e.clientX, e.clientY);
         } else {
             const position = e.changedTouches[0];
             x = position.pageX;
             y = position.pageY;
+            moveCallBack.current(position.clientX, position.clientY);
         }
         const moveX = x - point.current.pageX;
         const moveY = y - point.current.pageY;
@@ -70,7 +72,6 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
         point.current.y = moveY + point.current.y;
         point.current.pageX = x;
         point.current.pageY = y;
-        callback.current.move?.(x, y);
 
         setPosition({
             ...point.current,
@@ -78,15 +79,19 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
     };
 
     // 当鼠标 或者手 弹起时的通用事件
-    const handleUp = () => {
-        for (let i = 0; i < callback.current.up.length; i++) {
-            callback.current.up[i]({
-                x: point.current.pageX,
-                y: point.current.pageY,
-                code: selectRef.current?.code ?? "",
-                content: selectRef.current?.content ?? "",
-            });
+    const handleUp = (x: number, y: number) => {
+        if (!selectRef.current) {
+            return;
         }
+        upCallBack.current();
+        valueChangeCallback({
+            x,
+            y,
+            data: {
+                code: selectRef.current.code,
+                content: selectRef.current.content,
+            },
+        });
 
         document.onselectstart = selectedFn.current;
         point.current = {
@@ -103,16 +108,16 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
     };
 
     // 当鼠标弹起时
-    const handleMouseUp = () => {
-        handleUp();
+    const handleMouseUp = (e: MouseEvent) => {
+        handleUp(e.clientX, e.clientY);
         document.removeEventListener("mousemove", handleMove);
         document.removeEventListener("mouseup", handleMouseUp);
     };
 
     // 当手离开屏幕时
-    const handleTouchEnd = () => {
-        if (!canMove.current) return;
-        handleUp();
+    const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+        const data = e.changedTouches[0];
+        handleUp(data.clientX, data.clientY);
     };
 
     // 手或者鼠标 按下的通用事件
@@ -124,8 +129,6 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
             y: number;
         },
     ) => {
-        canMove.current = true;
-
         selectRef.current = {
             code: item.code,
             content: item.content,

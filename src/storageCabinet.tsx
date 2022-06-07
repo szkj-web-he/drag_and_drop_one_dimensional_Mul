@@ -1,83 +1,46 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React, { useEffect, useRef, useState } from "react";
-import { HandleUpFnProps, useMContext } from "./context";
-import { comms } from ".";
+import React, { useLayoutEffect, useState } from "react";
+import { useMContext } from "./context";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
 
-import { hasStorageEl, OptionProps } from "./unit";
+import { hasStorageEl } from "./unit";
 import { Product } from "./product";
 import { ScrollComponent } from "./Scroll";
+import { WarehouseProps } from "./warehouse";
 
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
-export const StorageCabinet: React.FC = () => {
+export const StorageCabinet: React.FC<WarehouseProps> = ({ list }) => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
 
-    const { isMobile, callback } = useMContext();
-
-    const [list, setList] = useState<Array<OptionProps>>();
+    const { isMobile, moveCallBack, upCallBack } = useMContext();
 
     const [active, setActive] = useState(false);
-
-    const timerOut = useRef<number>();
 
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
     /* <------------------------------------ **** PARAMETER START **** ------------------------------------ */
     /************* This section will include this component parameter *************/
-    useEffect(() => {
-        const data: Record<string, boolean> = {};
-        const listData: Record<string, true> = {};
+    useLayoutEffect(() => {
+        let timer: number | null = null;
+        moveCallBack.current = (x: number, y: number) => {
+            timer && window.clearTimeout(timer);
 
-        const arr = list ?? [];
-        for (let i = 0; i < arr.length; i++) {
-            listData[arr[i].code] = true;
-        }
-
-        const optionsData = comms.config.options ?? [];
-        for (let i = 0; i < optionsData.length; i++) {
-            const item = optionsData[i];
-            data[item.code] = listData[item.code];
-        }
-        comms.state = data;
-    }, [list]);
-
-    useEffect(() => {
-        return () => {
-            timerOut.current && window.clearTimeout(timerOut.current);
+            timer = window.setTimeout(() => {
+                setActive(hasStorageEl(x, y));
+            }, 1);
         };
-    }, []);
-
-    callback.current.move = (x: number, y: number) => {
-        timerOut.current && window.clearTimeout(timerOut.current);
-
-        timerOut.current = window.setTimeout(() => {
-            setActive(hasStorageEl(x, y));
-        }, 1);
-    };
-
-    callback.current.up[0] = (res: HandleUpFnProps) => {
-        timerOut.current && window.clearTimeout(timerOut.current);
-
-        const arr = list ? [...list] : [];
-        const n = arr.findIndex((item) => item.code === res.code);
-
-        const status = hasStorageEl(res.x, res.y);
-        if (status && n < 0) {
-            arr.push({
-                code: res.code,
-                content: res.content,
-            });
-            setList([...arr]);
-        } else if (n >= 0 && !status) {
-            arr.splice(n, 1);
-            setList([...arr]);
-        }
-        setActive(false);
-    };
+        upCallBack.current = () => {
+            timer && window.clearTimeout(timer);
+            setActive(false);
+        };
+        return () => {
+            timer && window.clearTimeout(timer);
+        };
+    }, [moveCallBack, upCallBack]);
 
     /* <------------------------------------ **** PARAMETER END **** ------------------------------------ */
     /* <------------------------------------ **** FUNCTION START **** ------------------------------------ */
