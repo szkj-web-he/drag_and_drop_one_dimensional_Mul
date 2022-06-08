@@ -11,6 +11,10 @@ import { Product } from "./product";
 import { ScrollComponent } from "./Scroll";
 import { WarehouseProps } from "./warehouse";
 
+import OuterFrame from "./outerFrame";
+import InnerFrame from "./innerFrame";
+import flower from "./Assets/svg/lotus_flower.svg";
+
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
 export const StorageCabinet: React.FC<WarehouseProps> = ({ list }) => {
@@ -58,11 +62,15 @@ export const StorageCabinet: React.FC<WarehouseProps> = ({ list }) => {
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
         <div className="storageCabinet_wrap">
+            <OuterFrame />
+            <InnerFrame active={active} />
             <div
-                className={`storageCabinet_container${isMobile ? " scrollBody" : ""}${
-                    active ? " active" : ""
-                }`}
-            >
+                className="storageCabinet_bgFlower"
+                dangerouslySetInnerHTML={{
+                    __html: flower,
+                }}
+            />
+            <div className={`storageCabinet_container${isMobile ? " scrollBody" : ""}`}>
                 {isMobile ? (
                     content
                 ) : (
