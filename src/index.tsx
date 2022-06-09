@@ -53,6 +53,15 @@ const Main: React.FC = () => {
     /************* This section will include this component parameter *************/
 
     useEffect(() => {
+        const arr = selectedValues ?? [];
+        const state: string[] = [];
+        for (let i = 0; i < arr.length; i++) {
+            state.push(arr[i].code);
+        }
+        comms.state = JSON.stringify(state);
+    }, [selectedValues]);
+
+    useEffect(() => {
         const fn = () => {
             setMobileStatus(isMobile);
         };
