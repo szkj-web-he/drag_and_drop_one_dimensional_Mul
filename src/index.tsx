@@ -54,11 +54,15 @@ const Main: React.FC = () => {
     /************* This section will include this component parameter *************/
     useEffect(() => {
         const arr = selectedValues ?? [];
-        const state: string[] = [];
-        for (let i = 0; i < arr.length; i++) {
-            state.push(arr[i].code);
+
+        const options = comms.config.options ?? [];
+        const state: Record<string, 0 | 1> = {};
+        for (let i = 0; i < options.length; i++) {
+            const val = arr.some(item => item.code === options[i].code);
+            state[options[i].code] = Number(val) as 0 | 1
+
         }
-        comms.state = JSON.stringify(state);
+        comms.state = state;
     }, [selectedValues]);
 
     useEffect(() => {
@@ -90,7 +94,7 @@ const Main: React.FC = () => {
         const arr = selectedValuesRef.current ?? [];
 
         let n = -1;
-        for (let i = 0; i < arr.length; ) {
+        for (let i = 0; i < arr.length;) {
             const item = arr[i];
             if (item.code === res.data.code) {
                 n = i;
