@@ -1,12 +1,12 @@
 /* <------------------------------------ **** DEPENDENCE IMPORT START **** ------------------------------------ */
 /** This section will include all the necessary dependence for this tsx file */
-import React from "react";
-import "./style.scss";
+import hr from "./Assets/svg/hr.svg";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
-
+/* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
+/** This section will include all the interface for this tsx file */
+/* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
-
-const Temp: React.FC = () => {
+const Temp = (): JSX.Element => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
@@ -17,13 +17,18 @@ const Temp: React.FC = () => {
     /************* This section will include this component general function *************/
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
-        <div className={`outerFrame`}>
-            <div className="outerFrame_bg1" />
-            <div className="outerFrame_bg2" />
-            <div className="outerFrame_bg3" />
-            <div className="outerFrame_bg4" />
-            <div className="outerFrame_bg5" />
+        <div className="hr">
+            <div
+                className="hr_icon"
+                dangerouslySetInnerHTML={{
+                    __html: hr,
+                }}
+            />
+            <div className="line" />
+            <div className="line1" />
+            <div className="line2" />
         </div>
     );
 };
+/* <------------------------------------ **** FUNCTION COMPONENT END **** ------------------------------------ */
 export default Temp;
