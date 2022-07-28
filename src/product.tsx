@@ -6,7 +6,8 @@ import { stopSelect } from "./Scroll/Unit/noSelected";
 import { useMContext } from "./context";
 import { getScrollValue } from "./getScrollValue";
 import { OptionProps, PointProps } from "./unit";
-
+import spider from "./Assets/svg/spider.svg";
+import pumpkin from "./Assets/svg/pumpkin.svg";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -179,7 +180,25 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
             y: position.pageY,
         });
     };
-
+    const content = (
+        <>
+            <div className="itemBg1" />
+            <div className="itemBg2" />
+            <div className="itemBg3" />
+            <div
+                className="itemBg4"
+                dangerouslySetInnerHTML={{
+                    __html: pumpkin,
+                }}
+            />
+            <div
+                className="itemBg5"
+                dangerouslySetInnerHTML={{
+                    __html: spider,
+                }}
+            />
+        </>
+    );
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
         <>
@@ -201,10 +220,15 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
                                       handleMouseDown(item, e);
                                   },
                               })}
-                        dangerouslySetInnerHTML={{
-                            __html: item.content,
-                        }}
-                    />
+                    >
+                        {content}
+                        <span
+                            className="itemContent"
+                            dangerouslySetInnerHTML={{
+                                __html: item.content,
+                            }}
+                        />
+                    </div>
                 );
             })}
 
@@ -218,10 +242,15 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
                             width: `${position.width}px`,
                             height: `${position.height}px`,
                         }}
-                        dangerouslySetInnerHTML={{
-                            __html: selectItem?.content ?? "",
-                        }}
-                    />,
+                    >
+                        {content}
+                        <span
+                            className="itemContent"
+                            dangerouslySetInnerHTML={{
+                                __html: selectItem?.content ?? "",
+                            }}
+                        />
+                    </div>,
                     document.querySelector("body>div") ?? document.body,
                 )}
         </>

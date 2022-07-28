@@ -9,7 +9,8 @@ import { isMobile } from "./isMobile";
 
 import { PluginComms, ConfigYML } from "@possie-engine/dr-plugin-sdk";
 import { hasStorageEl, OptionProps } from "./unit";
-import hr from "./Assets/svg/hr.svg";
+import leftHr from "./Assets/svg/leftHr.svg";
+import rightHr from "./Assets/svg/rightHr.svg";
 
 export const comms = new PluginComms({
     defaultConfig: new ConfigYML(),
@@ -58,9 +59,8 @@ const Main: React.FC = () => {
         const options = comms.config.options ?? [];
         const state: Record<string, 0 | 1> = {};
         for (let i = 0; i < options.length; i++) {
-            const val = arr.some(item => item.code === options[i].code);
-            state[options[i].code] = Number(val) as 0 | 1
-
+            const val = arr.some((item) => item.code === options[i].code);
+            state[options[i].code] = Number(val) as 0 | 1;
         }
         comms.state = state;
     }, [selectedValues]);
@@ -94,7 +94,7 @@ const Main: React.FC = () => {
         const arr = selectedValuesRef.current ?? [];
 
         let n = -1;
-        for (let i = 0; i < arr.length;) {
+        for (let i = 0; i < arr.length; ) {
             const item = arr[i];
             if (item.code === res.data.code) {
                 n = i;
@@ -123,6 +123,7 @@ const Main: React.FC = () => {
     }, []);
 
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
+
     return (
         <div className="wrapper">
             <div className="question">
@@ -149,14 +150,18 @@ const Main: React.FC = () => {
             >
                 <Warehouse list={[...noSelectedValues]} />
                 <div className="hr">
-                    <div className="hr_left" />
                     <div
-                        className="hr_split"
+                        className="hr_left"
                         dangerouslySetInnerHTML={{
-                            __html: hr,
+                            __html: leftHr,
                         }}
                     />
-                    <div className="hr_right" />
+                    <div
+                        className="hr_right"
+                        dangerouslySetInnerHTML={{
+                            __html: rightHr,
+                        }}
+                    />
                 </div>
                 <StorageCabinet list={selectedValues ? [...selectedValues] : []} />
             </Context.Provider>

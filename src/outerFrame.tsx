@@ -17,22 +17,13 @@ const Temp: React.FC = () => {
     /************* This section will include this component general function *************/
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
-        <div className="outerFrame">
-            <div className="outerFrame_left">
-                <div className="outerFrame_leftCircle" />
-                <div className="outerFrame_leftLine" />
-            </div>
-            <div className="outerFrame_center">
-                <div className="outerFrame_topLine" />
-                <div className="outerFrame_bottomLine" />
-            </div>
-            <div className="outerFrame_right">
-                <div className="outerFrame_rightLine" />
-                <div className="outerFrame_rightCircle" />
-            </div>
+        <div className={`outerFrame`}>
+            <div className="outerFrame_bg1" />
+            <div className="outerFrame_bg2" />
+            <div className="outerFrame_bg3" />
+            <div className="outerFrame_bg4" />
+            <div className="outerFrame_bg5" />
         </div>
     );
 };
-/* <------------------------------------ **** FUNCTION COMPONENT END **** ------------------------------------ */
-
 export default Temp;
