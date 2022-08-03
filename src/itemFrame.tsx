@@ -14,7 +14,6 @@ interface TempProps {
 const Temp: React.FC<TempProps> = ({ style, className }) => {
     /* <------------------------------------ **** STATE START **** ------------------------------------ */
     /************* This section will include this component HOOK function *************/
-    // const [el, setEl] = useState<HTMLCanvasElement | null>(null);
 
     const ref = useRef<HTMLCanvasElement | null>(null);
     /* <------------------------------------ **** STATE END **** ------------------------------------ */
@@ -30,7 +29,7 @@ const Temp: React.FC<TempProps> = ({ style, className }) => {
         ) => {
             ctx.beginPath();
 
-            const r = 6;
+            const r = 2;
             //右下角
             ctx.arc(width - r, height - r, r, 0, Math.PI / 2);
             ctx.lineTo(r + x, height);
@@ -41,13 +40,15 @@ const Temp: React.FC<TempProps> = ({ style, className }) => {
 
             //左上角
             ctx.arc(r + x, r + y, r, Math.PI, (Math.PI / 2) * 3);
-            ctx.lineTo(width - r, y);
+            ctx.lineTo(width - 11 - r, y);
 
-            //右上角
-            ctx.arc(width - r, r + y, r, (Math.PI / 2) * 3, Math.PI * 2);
+            //右上角1
+            ctx.arc(width - 11 - r, r + y, r, (Math.PI / 2) * 3, (Math.PI / 2) * 3 + Math.PI / 4);
+            ctx.lineTo(width, r + 11 + y);
+
+            //右上角2
+            ctx.arc(width - r, r + r + 11 + y, r, (Math.PI / 2) * 3 + Math.PI / 4, Math.PI * 2);
             ctx.lineTo(width, height - r);
-
-            ctx.closePath();
         };
 
         const fn = () => {
@@ -73,17 +74,11 @@ const Temp: React.FC<TempProps> = ({ style, className }) => {
                 drawRoundRectPath(ctx, width - 1, height - 1, 1, 1);
                 ctx.save();
 
-                const bg = ctx.createLinearGradient(-14, -12.5, width, height - 4);
-                bg.addColorStop(0, "rgba(87,241,241,0.36)");
-                bg.addColorStop(1, "rgba(0,69,166,0.4)");
-                ctx.fillStyle = bg;
+                ctx.fillStyle = "rgba(255,255,255,0.8)";
                 ctx.fill();
 
-                const strokeStyle = ctx.createLinearGradient(4.5, -3.5, width + 13, height + 11.5);
-                strokeStyle.addColorStop(0, "#57F1F1");
-                strokeStyle.addColorStop(1, "#007EFE");
                 ctx.restore();
-                ctx.strokeStyle = strokeStyle;
+                ctx.strokeStyle = "#55E5F2";
 
                 ctx.lineWidth = 0.6;
 
@@ -102,7 +97,12 @@ const Temp: React.FC<TempProps> = ({ style, className }) => {
     /************* This section will include this component general function *************/
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
 
-    return <canvas className={className} style={style} ref={ref} />;
+    return (
+        <>
+            <canvas className={className} style={style} ref={ref} />
+            <div className="triangle" />
+        </>
+    );
 };
 /* <------------------------------------ **** FUNCTION COMPONENT END **** ------------------------------------ */
 export default Temp;

@@ -6,6 +6,7 @@ import { Product } from "./product";
 import { OptionProps } from "./unit";
 import { useMContext } from "./context";
 import { ScrollComponent } from "./Scroll";
+import Frame from "./frame";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 
@@ -38,20 +39,22 @@ export const Warehouse: React.FC<WarehouseProps> = ({ list }) => {
                 </span>
                 项
             </div>
-
-            {isMobile ? (
-                <div className="warehouse_items">{content}</div>
-            ) : (
-                <ScrollComponent
-                    className="warehouse_scrollWrap"
-                    bodyClassName="warehouse_scrollBody"
-                    hidden={{
-                        x: true,
-                    }}
-                >
-                    {content}
-                </ScrollComponent>
-            )}
+            <div className="warehouse_container">
+                <Frame type="top" />
+                {isMobile ? (
+                    <div className="warehouse_items">{content}</div>
+                ) : (
+                    <ScrollComponent
+                        className="warehouse_scrollWrap"
+                        bodyClassName="warehouse_scrollBody"
+                        hidden={{
+                            x: true,
+                        }}
+                    >
+                        {content}
+                    </ScrollComponent>
+                )}
+            </div>
         </div>
     );
 };

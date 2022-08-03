@@ -1,4 +1,3 @@
-
 export interface OptionProps {
     code: string;
     content: string;
@@ -47,4 +46,51 @@ export const hasStorageEl = (x: number, y: number): boolean => {
         }
     }
     return status;
+};
+
+export const drawRoundRect = (el: HTMLCanvasElement, type: "top" | "bottom"): undefined => {
+    const parent = el.parentElement;
+    let width = 0;
+    let height = 0;
+    if (parent instanceof HTMLElement) {
+        width = parent.offsetWidth;
+        height = parent.offsetHeight;
+    }
+
+    const r = 12;
+
+    const ctx = el.getContext("2d");
+    if (!ctx) {
+        return;
+    }
+
+    ctx.clearRect(0, 0, el.width, el.height);
+    el.width = width;
+    el.height = height;
+
+    ctx.beginPath();
+
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 1;
+
+    const color =
+        type == "top"
+            ? ctx.createLinearGradient(15, -3, width * 0.895, height * 0.948)
+            : ctx.createLinearGradient(30, -6, width * 0.895, height * 0.936);
+    color.addColorStop(0, "rgba(255,255,255,0.5)");
+    color.addColorStop(0.4, "rgba(255,255,255,0)");
+    color.addColorStop(0.7, "rgba(75,243,254,0.34)");
+    color.addColorStop(1, "rgba(14,193,204,0.8)");
+    ctx.strokeStyle = color;
+
+    ctx.arc(width - r, height - r, r, 0, Math.PI / 2);
+    ctx.lineTo(r, height);
+    ctx.arc(r, height - r, r, Math.PI / 2, Math.PI);
+    ctx.lineTo(0, r);
+    ctx.arc(r, r, r, Math.PI, (Math.PI / 2) * 3);
+    ctx.lineTo(width - r, 0);
+    ctx.arc(width - r, r, r, (Math.PI / 2) * 3, Math.PI * 2);
+
+    ctx.closePath();
+    ctx.stroke();
 };

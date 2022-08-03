@@ -60,11 +60,11 @@ body {
     line-height: 21px;
     font-family: $fontFamily;
     letter-spacing: 0.2px;
-    color: #fafafa;
+    color: #105258;
 }
 
 .warehouse_totalVal {
-    color: #57f1f1;
+    color: #55e5f2;
     margin: 0 5px;
 
     &.red {
@@ -103,17 +103,17 @@ body {
     align-items: flex-end;
     justify-content: space-between;
     flex-flow: row nowrap;
-    margin-top: 10px;
+    margin-top: 21px;
 }
 
 .hr_icon {
     width: calc(100% - 11px);
-    height: 13px;
+    height: 14px;
 }
 
 .hr_last {
     margin-left: 3px;
-    transform: translateY(2px);
+    transform: translateY(1px);
 }
 
 .warehouse_scrollBody {
@@ -121,7 +121,6 @@ body {
     max-height: 178px;
     position: relative;
     display: flex;
-    padding-bottom: 24px;
     align-items: center;
     justify-content: flex-start;
     align-content: flex-start;
@@ -158,7 +157,7 @@ body {
     flex: 0 0 auto;
     box-sizing: border-box;
     z-index: 7;
-    color: #fafafa;
+
     .itemBg {
         position: absolute;
         z-index: 1;
@@ -166,6 +165,7 @@ body {
         top: 0;
     }
     .itemContent {
+        color: #105258;
         position: relative;
         z-index: 2;
         padding: 8px 12px;
@@ -209,87 +209,72 @@ body {
     right: 4px;
 }
 
-.placeholder {
-    width: 100%;
-    height: 100%;
-    color: rgba(255, 255, 255, 0.5);
-    font-family: $fontFamily;
-    font-weight: 400;
-    font-size: 14px;
-    letter-spacing: 0.2px;
-    line-height: 21px;
-    padding: 0 10px;
+.storageCabinet_deskScrollWrap {
+    height: calc(100% - 65px) !important;
+
+    overflow: hidden;
+    @include TypeBackground();
 }
 
 .storageCabinet_wrap {
-    width: 100%;
-    overflow: hidden;
-    margin-top: 30px;
-    background: linear-gradient(
-        172deg,
-        rgba(208, 241, 255, 0.24) 11.6%,
-        rgba(128, 224, 255, 0.3) 95.78%
-    );
-
     position: relative;
-    backdrop-filter: blur(10px);
-    /* Note: backdrop-filter has minimal browser support */
-
-    border-radius: 12px;
     height: 220px;
+    margin-top: 30px;
     padding: 20px;
     box-sizing: border-box;
 }
 
-.storageCabinet_ltIcon {
-    position: absolute;
-    top: 19px;
-    left: 17.5px;
-    pointer-events: none;
-}
-
-.storageCabinet_rbIcon {
-    position: absolute;
-    bottom: 17.5px;
-    right: 19px;
-    pointer-events: none;
-}
-
 .storageCabinet_container {
-    background: #0e446f;
-    box-shadow: inset 0px 4px 35px rgba(0, 143, 188, 0.25);
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.7);
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+    box-shadow: 1px 2px 10px rgba(28, 118, 131, 0.08);
+    backdrop-filter: blur(50px);
+    /* Note: backdrop-filter has minimal browser support */
+    padding-top: 37px;
     border-radius: 6px;
-    height: 100%;
     width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+    box-sizing: border-box;
     transition: all 0.2s linear;
     &.storageCabinet_container__active {
-        box-shadow: inset 0px 4px 35px rgba(0, 143, 188, 0.25),
-            0 0 5px 1px rgba(255, 255, 255, 0.25);
+        border-color: #487bd1;
     }
 }
 
-.storageCabinet_main {
-    padding: 15px 5px 0 5px;
-}
-
-.transition {
-    transition-duration: 600ms;
-    transition-property: transform;
+.frameBorder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
 }
 
 .warehouse_body {
     width: calc(100% + 20px);
-
+    padding: 4px 2px;
     > .item {
-        margin-right: 20px;
-        margin-bottom: 16px;
+        margin: 8px 10px;
     }
+    position: relative;
 }
 
-.storageCabinet_main {
-    .item {
-        margin: 0 10px 16px 10px;
-    }
+.storageCabinet_top {
+    width: calc(100% - 40px);
+    background: #73dee8;
+    box-shadow: inset 0px 3px 10px rgba(0, 0, 0, 0.12);
+    height: 37px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    position: absolute;
+    z-index: 11;
+    top: 20px;
+    left: 20px;
+    box-sizing: border-box;
 }
 
 .question {
@@ -302,7 +287,7 @@ body {
 }
 
 .questionContent {
-    color: #57f1f1;
+    color: #105258;
     font-family: $fontFamily;
     font-style: normal;
     font-weight: 500;
@@ -312,11 +297,66 @@ body {
 }
 
 .questionDes {
-    color: #72bbbb;
+    color: #00828d;
     font-family: $fontFamily;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 20px;
     line-height: 30px;
     letter-spacing: 0.2px;
+}
+
+.frame {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+        112.02deg,
+        rgba(255, 255, 255, 0.4) 3.22%,
+        rgba(127, 226, 220, 0.1) 96.65%
+    );
+    box-shadow: 0px 5px 10px rgba(22, 136, 143, 0.25);
+    backdrop-filter: blur(20.5273px);
+
+    border-radius: 12px;
+}
+
+.warehouse_container {
+    position: relative;
+    box-sizing: border-box;
+}
+
+.storageCabinet_main {
+    padding: 5px 5px 0 5px;
+
+    .item {
+        margin: 0 10px 15px 10px;
+    }
+}
+
+.placeholder {
+    color: rgba(0, 0, 0, 0.5);
+    font-family: $fontFamily;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    line-height: 21px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.triangle {
+    border-color: #55e5f2 #55e5f2 transparent transparent;
+    border-style: solid;
+    width: 0;
+    height: 0;
+    border-width: 4.5px;
+    position: absolute;
+    border-radius: 0.5px;
+    top: 0;
+    right: 0;
 }

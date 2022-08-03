@@ -48,18 +48,20 @@ const Temp: React.FC<TempProps> = ({ className }) => {
     return (
         <div className={`hr ${className ? ` ${className}` : ""}`} ref={ref}>
             <svg
-                className="hr_icon"
-                viewBox={`0 0 ${width} 13`}
+                viewBox={`0 0 ${width} 14`}
                 fill="none"
+                className="hr_icon"
                 xmlns="http://www.w3.org/2000/svg"
             >
+                {/* 1147.5 */}
                 <path
-                    d={`M7.62259 1.07324L0.977539 7.99728L5.13685 12.3312L5.23235 12.2317L1.16854 7.99728L7.62264 1.27221L14.0836 7.9973L10.0198 12.2317L10.0207 12.2327H10.0193V12.3735H${
-                        width - 2
-                    }.618V12.2327H10.2098L14.2746 7.99725L7.62259 1.07324Z`}
-                    fill="url(#paint0_linear_5736_14868)"
+                    d={`M7.62259 1.07324L0.977539 7.99728L5.15409 12.4995L5.24959 12.4L1.16854 7.99728L7.62264 1.27221L14.0836 7.9973L10.0198 12.4V12.6L${
+                        width - 0.5
+                    } 12.6L10.2098 12.4L14.2746 7.99725L7.62259 1.07324Z`}
+                    fill="url(#paint0_linear_5750_14868)"
                     fillOpacity="0.6"
-                    stroke="url(#paint1_linear_5736_14868)"
+                    stroke="url(#paint1_linear_5750_14868)"
+                    strokeOpacity="0.6"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                 />
@@ -67,34 +69,34 @@ const Temp: React.FC<TempProps> = ({ className }) => {
                     width="3.04512"
                     height="3.04512"
                     transform="matrix(0.698639 0.715474 -0.698639 0.715474 7.61963 5.58594)"
-                    fill="url(#paint2_linear_5736_14868)"
-                    fillOpacity="0.6"
+                    fill="url(#paint2_linear_5750_14868)"
+                    fillOpacity="0.8"
                 />
                 <defs>
                     <linearGradient
-                        id="paint0_linear_5736_14868"
+                        id="paint0_linear_5750_14868"
                         x1="123.16"
                         y1="5.31082"
-                        x2="125.523"
+                        x2="125.522"
                         y2="42.0941"
                         gradientUnits="userSpaceOnUse"
                     >
                         <stop stopColor="#00FFF0" />
-                        <stop offset="1" stopColor="#01D1FF" />
+                        <stop offset="1" stopColor="#00C0DF" />
                     </linearGradient>
                     <linearGradient
-                        id="paint1_linear_5736_14868"
-                        x1="326.798"
+                        id="paint1_linear_5750_14868"
+                        x1="326.797"
                         y1="1.07324"
-                        x2="326.798"
+                        x2="326.797"
                         y2="12.3735"
                         gradientUnits="userSpaceOnUse"
                     >
-                        <stop stopColor="#00FFF0" />
-                        <stop offset="1" stopColor="#01D1FF" stopOpacity="0.6" />
+                        <stop stopColor="#00C7E1" />
+                        <stop offset="1" stopColor="#00FFF0" />
                     </linearGradient>
                     <linearGradient
-                        id="paint2_linear_5736_14868"
+                        id="paint2_linear_5750_14868"
                         x1="0.570959"
                         y1="1.14192"
                         x2="3.07568"
@@ -102,10 +104,11 @@ const Temp: React.FC<TempProps> = ({ className }) => {
                         gradientUnits="userSpaceOnUse"
                     >
                         <stop stopColor="#00FFF0" />
-                        <stop offset="1" stopColor="#01D1FF" />
+                        <stop offset="1" stopColor="#00C0DF" />
                     </linearGradient>
                 </defs>
             </svg>
+
             <img src={hr} className="hr_last" alt="" />
         </div>
     );
