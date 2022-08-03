@@ -6,8 +6,7 @@ import { stopSelect } from "./Scroll/Unit/noSelected";
 import { useMContext } from "./context";
 import { getScrollValue } from "./getScrollValue";
 import { OptionProps, PointProps } from "./unit";
-import bg from "./Assets/img/icon_bg.png";
-import icon from "./Assets/img/icon_bottom.png";
+import Frame from "./itemFrame";
 /* <------------------------------------ **** DEPENDENCE IMPORT END **** ------------------------------------ */
 /* <------------------------------------ **** INTERFACE START **** ------------------------------------ */
 /** This section will include all the interface for this tsx file */
@@ -180,14 +179,7 @@ export const Product: React.FC<ProductProps> = ({ list }) => {
             y: position.pageY,
         });
     };
-    const content = (
-        <>
-            <div className="itemBg">
-                <img src={bg} alt="" className="itemBg_icon" />
-            </div>
-            <img src={icon} alt="" className="itemIcon" />
-        </>
-    );
+    const content = <Frame className={`itemBg`} />;
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
         <>

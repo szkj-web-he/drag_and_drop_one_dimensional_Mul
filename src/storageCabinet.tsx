@@ -11,6 +11,8 @@ import { Product } from "./product";
 import { ScrollComponent } from "./Scroll";
 import { WarehouseProps } from "./warehouse";
 
+import lt from "./Assets/img/icon_lt.png";
+import rb from "./Assets/img/icon_rb.png";
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
 export const StorageCabinet: React.FC<WarehouseProps> = ({ list }) => {
@@ -58,7 +60,9 @@ export const StorageCabinet: React.FC<WarehouseProps> = ({ list }) => {
     /* <------------------------------------ **** FUNCTION END **** ------------------------------------ */
     return (
         <div className="storageCabinet_wrap">
-            <div className="storageCabinet_wrapBg" />
+            <img alt="" src={lt} className="storageCabinet_ltIcon" />
+            <img alt="" src={rb} className="storageCabinet_rbIcon" />
+
             <div
                 className={`storageCabinet_container${isMobile ? " scrollBody" : ""}${
                     active ? " storageCabinet_container__active" : ""

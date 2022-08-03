@@ -1,8 +1,24 @@
 @use "./normalize.scss" as *;
 
-$fontFamily: "alipuhui", sans-serif;
+$fontFamily: alibaba-puhuiti, sans-serif;
 
 $color: #212121;
+
+$span: calc(calc(100vw - 20px * 2 - 11 * 24px - 24px * 2) / 12);
+
+@mixin gridCol($val) {
+    width: calc(calc($span * $val) + calc(($val - 1) * 24px));
+}
+
+$mobileSpan: calc(calc(100vw - 16px * 2 - 11 * 20px - 24px * 2) / 12);
+
+@mixin mobileGridCol($val) {
+    width: calc($mobileSpan * $val + calc($val - 1) * 20px);
+}
+
+@mixin TypeBackground {
+    position: relative;
+}
 
 html,
 .wrapper,
@@ -34,7 +50,7 @@ body {
 
 .warehouse_wrap {
     margin-top: 32px;
-    margin-bottom: 24px;
+    width: 100%;
 }
 
 .warehouse_total {
@@ -44,15 +60,15 @@ body {
     line-height: 21px;
     font-family: $fontFamily;
     letter-spacing: 0.2px;
-    color: #fff;
+    color: #fafafa;
 }
 
 .warehouse_totalVal {
-    color: #00aed4;
+    color: #57f1f1;
     margin: 0 5px;
 
     &.red {
-        color: red;
+        color: #ff7745;
     }
 }
 
@@ -70,12 +86,15 @@ body {
     overflow: auto;
     overflow-x: hidden;
     min-height: 100px;
-    box-sizing: border-box;
 }
 
 .warehouse_scrollWrap {
     margin-top: 8px;
     box-sizing: border-box;
+
+    &.scroll_scrollContainer {
+        height: auto;
+    }
 }
 
 .hr {
@@ -85,48 +104,16 @@ body {
     justify-content: space-between;
     flex-flow: row nowrap;
     margin-top: 10px;
-    position: relative;
 }
 
 .hr_icon {
-    flex: 0 0 auto;
-    width: 13.42px;
-    display: inline-flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    flex-flow: row nowrap;
-    svg {
-        vertical-align: bottom;
-    }
-}
-
-.line {
     width: calc(100% - 11px);
-    height: 1px;
-    flex: 0 0 auto;
-    margin-left: -2.42px;
-    background-color: #17badb;
-    border-radius: 1px;
+    height: 13px;
 }
 
-.line1 {
-    width: 25px;
-    height: 1px;
-    background-color: #17badb;
-    border-radius: 1px;
-    position: absolute;
-    right: 0;
-    bottom: 3px;
-}
-
-.line2 {
-    width: 5px;
-    height: 1px;
-    background-color: #17badb;
-    border-radius: 1px;
-    position: absolute;
-    right: 0;
-    bottom: 6px;
+.hr_last {
+    margin-left: 3px;
+    transform: translateY(2px);
 }
 
 .warehouse_scrollBody {
@@ -141,67 +128,57 @@ body {
     flex-flow: row wrap;
 }
 
-@mixin Item {
-    padding: 5px 12px;
+@mixin ItemBg {
+    position: absolute;
+    border-radius: 9px;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+@mixin ItemSvgBg {
+    position: absolute;
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+
+    svg {
+        flex: 0 0 auto;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@mixin Item {
+    display: inline-flex;
+    border-radius: 6px;
     touch-action: none;
     max-width: 100%;
     flex: 0 0 auto;
     box-sizing: border-box;
-    word-wrap: break-word;
-    word-break: break-word;
-    white-space: pre-wrap;
-    flex-flow: row wrap;
-
-    &::after {
-        background: #bcf3ff;
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border: 0.6px solid #00b2d9;
-        border-radius: 7px;
-        top: 0;
-        left: 0;
-        z-index: 5;
-    }
-    .itemContent {
-        font-family: $fontFamily;
-        font-size: 14px;
-        font-weight: 700;
-        line-height: 21px;
-        letter-spacing: 0.2px;
-        position: relative;
-        z-index: 7;
-        color: #00aed4;
-    }
-
+    z-index: 7;
+    color: #fafafa;
     .itemBg {
         position: absolute;
-        width: 100%;
-        height: calc(100% - 1px);
-        background: #00aed5;
-        border-radius: 7px;
+        z-index: 1;
         left: 0;
-        top: 4px;
+        top: 0;
+    }
+    .itemContent {
+        position: relative;
+        z-index: 2;
+        padding: 8px 12px;
+        font-family: $fontFamily;
+        font-size: 14px;
+        line-height: 21px;
+        letter-spacing: 0.2px;
+        box-sizing: border-box;
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: pre-wrap;
+        flex-flow: row wrap;
         overflow: hidden;
-        z-index: 3;
-    }
-
-    .itemBg_icon {
-        width: 100%;
-        height: 100%;
-    }
-
-    .itemIcon {
-        position: absolute;
-        bottom: -2px;
-        right: 0;
-        z-index: 8;
-        object-fit: contain;
-        object-position: bottom right;
-        width: 11.35px;
-        height: 15.88px;
     }
 }
 
@@ -209,16 +186,12 @@ body {
     cursor: pointer;
     @include Item();
     position: relative;
-    margin-right: 20px;
-    margin-bottom: 16px;
+
     &.gray {
-        &::after {
-            visibility: hidden;
-        }
-        border-color: transparent;
+        overflow: hidden;
+        background-color: rgba(#fff, 0.2);
+        background-image: none;
         color: transparent;
-        border-radius: 7px;
-        background-color: rgba(0, 0, 0, 0.3);
         * {
             visibility: hidden;
         }
@@ -230,44 +203,92 @@ body {
     position: absolute;
     z-index: 50;
     pointer-events: none;
-    box-shadow: 0px 2px 8px rgba(26, 26, 26, 0.08), 0px 2px 4px rgba(26, 26, 26, 0.03);
-}
-
-.scroll_scrollBody {
-    padding: 0 12px;
-    box-sizing: border-box;
 }
 
 .scroll_scrollBar__vertical {
-    right: 4px !important;
-    border-radius: 8px !important;
+    right: 4px;
 }
 
-.warehouse_placeholder {
+.placeholder {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #bdbdbd;
+    color: rgba(255, 255, 255, 0.5);
     font-family: $fontFamily;
     font-weight: 400;
     font-size: 14px;
     letter-spacing: 0.2px;
     line-height: 21px;
+    padding: 0 10px;
+}
+
+.storageCabinet_wrap {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 30px;
+    background: linear-gradient(
+        172deg,
+        rgba(208, 241, 255, 0.24) 11.6%,
+        rgba(128, 224, 255, 0.3) 95.78%
+    );
+
+    position: relative;
+    backdrop-filter: blur(10px);
+    /* Note: backdrop-filter has minimal browser support */
+
+    border-radius: 12px;
+    height: 220px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.storageCabinet_ltIcon {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 19px;
+    left: 17.5px;
+    pointer-events: none;
+}
+
+.storageCabinet_rbIcon {
+    position: absolute;
+    bottom: 17.5px;
+    right: 19px;
+    pointer-events: none;
+}
+
+.storageCabinet_container {
+    background: #0e446f;
+    box-shadow: inset 0px 4px 35px rgba(0, 143, 188, 0.25);
+    border-radius: 6px;
+    height: 100%;
+    width: 100%;
+    transition: all 0.2s linear;
+    &.storageCabinet_container__active {
+        box-shadow: inset 0px 4px 35px rgba(0, 143, 188, 0.25),
+            0 0 5px 1px rgba(255, 255, 255, 0.25);
+    }
+}
+
+.storageCabinet_main {
+    padding: 15px 5px 0 5px;
+}
+
+.transition {
+    transition-duration: 600ms;
+    transition-property: transform;
 }
 
 .warehouse_body {
     width: calc(100% + 20px);
-    .placeholder {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+    > .item {
+        margin-right: 20px;
+        margin-bottom: 16px;
+    }
+}
+
+.storageCabinet_main {
+    .item {
+        margin: 0 10px 16px 10px;
     }
 }
 
@@ -281,7 +302,7 @@ body {
 }
 
 .questionContent {
-    color: #e7fbff;
+    color: #57f1f1;
     font-family: $fontFamily;
     font-style: normal;
     font-weight: 500;
@@ -291,79 +312,11 @@ body {
 }
 
 .questionDes {
-    color: #bcf3ff;
+    color: #72bbbb;
     font-family: $fontFamily;
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
     line-height: 30px;
     letter-spacing: 0.2px;
-}
-
-.storageCabinet_wrap {
-    margin-top: 40px;
-    width: 100%;
-    height: 220px;
-    padding: 26px;
-    box-sizing: border-box;
-    position: relative;
-
-    background: linear-gradient(
-        112.02deg,
-        rgba(255, 255, 255, 0.4) 3.22%,
-        rgba(127, 226, 220, 0.1) 96.65%
-    );
-    box-shadow: 0px 5px 10px rgba(25, 185, 196, 0.25);
-    backdrop-filter: blur(20.5273px);
-
-    border-radius: 12px;
-}
-
-.storageCabinet_wrapBg {
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
-    position: absolute;
-    background: #6cdef4;
-    box-shadow: inset 0px 2px 2px rgba(152, 249, 255, 0.25);
-    top: 20px;
-    left: 20px;
-    border-radius: 20px;
-    z-index: 2;
-}
-
-.storageCabinet_container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    z-index: 10;
-    border-radius: 20px;
-    transition: all 0.2s linear;
-    background: #ffffff;
-    box-shadow: 0px 2px 4px #02a0b6, inset -1px 1px 3px rgba(24, 175, 208, 0.6);
-    &.storageCabinet_container__active {
-        background-color: #02a0b6;
-    }
-}
-
-.scrollBody {
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: 18px;
-    box-sizing: border-box;
-}
-
-.placeholder {
-    font-family: $fontFamily;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 21px;
-    display: flex;
-    align-items: center;
-    letter-spacing: 0.2px;
-    color: gray;
-}
-
-.storageCabinet_main {
-    width: calc(100% + 20px);
 }
