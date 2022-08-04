@@ -12,6 +12,7 @@ import { ScrollComponent } from "./Scroll";
 import { WarehouseProps } from "./warehouse";
 
 import Frame from "./frame";
+import { comms } from "./index";
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
 export const StorageCabinet: React.FC<WarehouseProps> = ({ list }) => {
@@ -50,7 +51,7 @@ export const StorageCabinet: React.FC<WarehouseProps> = ({ list }) => {
     const content = (
         <div className="storageCabinet_main">
             <div className="placeholder" style={list?.length ? { display: "none" } : {}}>
-                请将答案选项放置在这里
+                {comms.config.optionsInstruction}
             </div>
             <Product list={list ?? []} />
         </div>

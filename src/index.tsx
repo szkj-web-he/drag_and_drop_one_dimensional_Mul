@@ -17,6 +17,7 @@ export const comms = new PluginComms({
     config: {
         question?: string;
         instruction?: string;
+        optionsInstruction?: string;
         options?: Array<{ code: string; content: string }>;
     };
     state: unknown;
