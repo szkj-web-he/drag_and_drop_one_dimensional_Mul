@@ -40,3 +40,4 @@ options:
         { "code": "36", "content": "修眉刀" },
         { "code": "37", "content": "睫毛夹" },
     ]
+optionsInstruction: "请将答案选项放置在这里"
