@@ -10,6 +10,7 @@ import { hasStorageEl } from "./unit";
 import { Product } from "./product";
 import { ScrollComponent } from "./Scroll";
 import { WarehouseProps } from "./warehouse";
+import { comms } from ".";
 
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
@@ -49,7 +50,7 @@ export const StorageCabinet: React.FC<WarehouseProps> = ({ list }) => {
     const content = (
         <div className="storageCabinet_main">
             <div className="placeholder" style={list?.length ? { display: "none" } : {}}>
-                请将答案选项放置在这里
+                {comms.config.optionsInstruction}
             </div>
             <Product list={list ?? []} />
         </div>
