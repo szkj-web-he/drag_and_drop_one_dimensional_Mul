@@ -57,10 +57,10 @@ const Main: React.FC = () => {
         const arr = selectedValues ?? [];
 
         const options = comms.config.options ?? [];
-        const state: Record<string, 0 | 1> = {};
+        const state: Record<string, "0" | "1"> = {};
         for (let i = 0; i < options.length; i++) {
             const val = arr.some((item) => item.code === options[i].code);
-            state[options[i].code] = Number(val) as 0 | 1;
+            state[options[i].code] = val ? "1" : "0";
         }
         comms.state = state;
     }, [selectedValues]);
