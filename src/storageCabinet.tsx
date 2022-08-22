@@ -12,6 +12,7 @@ import { ScrollComponent } from "./Scroll";
 import { WarehouseProps } from "./warehouse";
 
 import OuterFrame from "./outerFrame";
+import { comms } from ".";
 
 /* <------------------------------------ **** INTERFACE END **** ------------------------------------ */
 /* <------------------------------------ **** FUNCTION COMPONENT START **** ------------------------------------ */
